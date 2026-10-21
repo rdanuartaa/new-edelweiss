@@ -86,7 +86,8 @@ INSERT INTO packages (id, name, description, location, latitude, longitude, bann
 (5, 'Paket Menu Sarapan Pagi (Kuliner Khas Alam Semeru)', 'Sarapan enak energi untuk petualangan lebih seru! Nikmati hidangan khas Jawa Timuran yang lezat dan bergizi di alam terbuka kaki Gunung Semeru. Menyajikan pilihan nasi jagung/putih, aneka lauk gurih, urap-urap segar, sayur lodeh, sambal khas, dan minuman hangat.', 'Basecamp & Rest Area Edelweiss, Pronojiwo, Lumajang', -8.2291582, 112.9167231, '/images/banner_sarapan.jpg', '/images/poster_sarapan.jpg'),
 (6, 'Paket BBQ Alam Terbuka (Cocok untuk Camping & Rame-Rame)', 'Nikmatnya sensasi pesta BBQ bersama di alam terbuka kaki Gunung Semeru. Menu lengkap daging ayam marinasi, bakso bakar, sosis, selada segar, bawang bombay, mentega, dan racikan saos BBQ spesial. Seru, lezat, dan penuh kehangatan kebersamaan.', 'Kali Kebo Camp Ground & Basecamp Edelweiss, Pronojiwo', -8.2152582, 112.9257231, '/images/banner_bbq.jpg', '/images/poster_bbq.jpg'),
 (7, 'Paket Grill BBQ Premium (Include Alat Masak & Daging Grill)', 'BBQ bersama jadi lebih seru tanpa repot! Paket komplit Grill BBQ sudah termasuk 1 set peralatan masak BBQ lengkap, daging grill (sliced beef), aneka sosis, jamur enoki, selada, bawang bombay, mentega, dan saos BBQ racikan khas.', 'Kali Kebo Camp Ground & Rest Area Edelweiss, Pronojiwo', -8.2152582, 112.9257231, '/images/banner_grill_bbq.jpg', '/images/poster_grill_bbq.jpg'),
-(8, 'Pricelist Adventure Equipment Rental (Sewa Alat Camping Kali Kebo)', 'Layanan rental perlengkapan adventure dan camping terlengkap di Kali Kebo Camp Ground, Pronojiwo, Lumajang. Menyediakan sewa tenda berbagai kapasitas (2-6 orang), perlengkapan tidur bed set, peralatan masak outdoor lengkap, set meja kursi lipat, hingga penerangan dan aksesoris tracking.', 'Kali Kebo Camp Ground, Pronojiwo, Lumajang', -8.2198, 112.9285, '/images/banner_rental_alat.jpg', '/images/poster_rental_alat.jpg')
+(8, 'Pricelist Adventure Equipment Rental (Sewa Alat Camping Kali Kebo)', 'Layanan rental perlengkapan adventure dan camping terlengkap di Kali Kebo Camp Ground, Pronojiwo, Lumajang. Menyediakan sewa tenda berbagai kapasitas (2-6 orang), perlengkapan tidur bed set, peralatan masak outdoor lengkap, set meja kursi lipat, hingga penerangan dan aksesoris tracking.', 'Kali Kebo Camp Ground, Pronojiwo, Lumajang', -8.2198, 112.9285, '/images/banner_rental_alat.jpg', '/images/poster_rental_alat.jpg'),
+(9, 'Pendakian Ranu Kumbolo (Special Open Trip & Private)', 'Pendakian impian menyusuri kemegahan Danau Ranu Kumbolo (2.400 mdpl) di kaki Gunung Semeru bersama Edelweiss Tour & Travel. Nikmati magisnya golden sunrise di antara dua bukit kembar, kabut pagi yang syahdu, hamparan Savana Oro-Oro Ombo berhias bunga ungu, dan indahnya Tanjakan Cinta. Tersedia kuota 30 pax per batch (September 2026) dengan fasilitas pendakian lengkap, tenda dome, porter tim, logistik makan, pemandu berpengalaman, dan dokumentasi foto.', 'Danau Ranu Kumbolo, TNBTS (Lumajang - Malang)', -8.0375, 112.9248, '/images/banner_ranukumbolo.jpg', '/images/poster_ranukumbolo.jpg')
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   description = EXCLUDED.description,
@@ -112,7 +113,9 @@ INSERT INTO package_details (id, package_id, option_name, price, duration) VALUE
 (701, 7, 'Paket Grill BBQ 250K (Include Set Alat Masak BBQ)', 250000, '1 Paket Komplit'),
 (801, 8, 'Sewa Tenda Camping Waterproof (Per Hari)', 40000, '1 Hari'),
 (802, 8, 'Paket Alat Masak & Meja Kursi Outdoor (Per Hari)', 50000, '1 Hari'),
-(803, 8, 'Bed Set, Penerangan & Aksesori Tambahan (Per Hari)', 30000, '1 Hari')
+(803, 8, 'Bed Set, Penerangan & Aksesori Tambahan (Per Hari)', 30000, '1 Hari'),
+(901, 9, 'Open Trip Ranu Kumbolo 3D2N (Batch September 2026)', 1150000, '3 Hari 2 Malam'),
+(902, 9, 'Private Trip Ranu Kumbolo 3D2N (Custom Jadwal)', 1650000, '3 Hari 2 Malam')
 ON CONFLICT (id) DO UPDATE SET
   package_id = EXCLUDED.package_id,
   option_name = EXCLUDED.option_name,
@@ -232,7 +235,26 @@ INSERT INTO facilities (package_detail_id, name) VALUES
 (803, 'Lampu Lentera (20K), Lampu Charger (10K), Lampu Tenda (10K)'),
 (803, 'Flysheet Tenda (15K) / Flysheet + Tiang Pasang (25K)'),
 (803, 'Tripod Kamera (15K), Hydropack (18K), Tracking Pole (15K)'),
-(803, 'Tikar Alas Duduk Santai (20K)');
+(803, 'Tikar Alas Duduk Santai (20K)'),
+(901, 'Tiket Masuk & Simaksi Resmi TNBTS Ranu Kumbolo'),
+(901, 'Tenda Dome Double Layer (Kap. 4 Orang diisi 3-4)'),
+(901, 'Matras Tebal & Sleeping Bag Hangat'),
+(901, 'Logistik Makanan & Minuman Selama Pendakian (Fullboard)'),
+(901, 'Peralatan Masak & Makan Camping Lengkap'),
+(901, 'Guide / Pemandu Bersertifikat & Berpengalaman'),
+(901, 'Porter Tim (Membawa Tenda, Logistik & Alat Masak)'),
+(901, 'Dokumentasi Foto Selama Trip'),
+(901, 'Medical Kit & P3K Standar Pendakian'),
+(901, 'Pilihan Jadwal Batch September 2026 (Kuota 30 Pax)'),
+(902, 'Bebas Pilih Tanggal Sesuai Rencana Anda'),
+(902, 'Simaksi & Izin Resmi TNBTS'),
+(902, 'Tenda Dome Private (Kap. 2-3 Orang per Tenda)'),
+(902, 'Porter Khusus Membawa Beban & Perlengkapan Tim'),
+(902, 'Menu Makanan Spesial Selama Camping'),
+(902, 'Matras Nyaman & Sleeping Bag Hangat'),
+(902, 'Guide Privat Eksklusif'),
+(902, 'Dokumentasi Foto & Video Kreatif'),
+(902, 'Medical Kit Standar Pendakian');
 
 INSERT INTO articles (id, tag_id, judul, slug, deskripsi, isi, gambar) VALUES
 (1, 1, 'Update Kondisi Wisata Semeru Terkini: Aktivitas Vulkanik dan Panduan Aman Wisata di Kaki Gunung', 'update-kondisi-wisata-semeru-terkini-aktivitas-vulkanik-dan-panduan-aman-wisata-di-kaki-gunung', 'Informasi terkini status aktivitas Gunung Semeru, panduan zona aman PVMBG, serta rekomendasi destinasi lereng Semeru seperti Lava Tour dan Panorama Kapas Biru yang aman dikunjungi wisatawan.', 'Informasi terkini mengenai kondisi vulkanik Gunung Semeru menjadi acuan penting bagi para wisatawan dan pecinta alam. Berdasarkan rekomendasi resmi Pusat Vulkanologi dan Mitigasi Bencana Geologi (PVMBG), kawasan wisata di luar radius rekomendasi bahaya—seperti Lava Tour Semeru di Pronojiwo, Hutan Pinus Pidrah, dan wisata air terjun Tumpak Sewu—tetap beroperasi normal dan aman untuk dikunjungi dengan pendampingan pemandu lokal berlisensi.
