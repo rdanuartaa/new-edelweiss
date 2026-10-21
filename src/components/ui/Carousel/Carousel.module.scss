@@ -1,0 +1,126 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 10px 4px 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include mobile {
+    gap: 16px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+.slide {
+  flex: 0 0 calc(33.333% - 16px);
+  scroll-snap-align: start;
+  min-width: 310px;
+  display: flex;
+  height: auto;
+
+  @include tablet {
+    flex: 0 0 calc(50% - 12px);
+    min-width: 280px;
+  }
+
+  @include mobile {
+    flex: 0 0 88%;
+    min-width: 270px;
+  }
+
+  > * {
+    width: 100%;
+  }
+}
+
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid var(--Line);
+  color: var(--Heading);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  @include flex-center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.24, 0.74, 0.58, 1);
+
+  &:hover {
+    background-color: var(--Primary);
+    border-color: var(--Primary);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(99, 171, 69, 0.35);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.prevBtn {
+  left: -20px;
+}
+
+.nextBtn {
+  right: -20px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #D1D5DB;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s cubic-bezier(0.24, 0.74, 0.58, 1);
+
+  &:hover {
+    background-color: #9CA3AF;
+  }
+
+  &.activeDot {
+    width: 30px;
+    border-radius: 9999px;
+    background-color: var(--Primary);
+    box-shadow: 0 3px 10px rgba(99, 171, 69, 0.4);
+  }
+}

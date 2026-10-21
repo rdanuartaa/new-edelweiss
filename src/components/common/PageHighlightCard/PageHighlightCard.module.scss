@@ -1,0 +1,391 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.card {
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #161921 0%, #1e2833 60%, #202e3b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 48px 40px;
+  min-height: 250px;
+  color: #FFFFFF;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include tablet {
+    padding: 38px 30px;
+    min-height: 220px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 20px 0;
+    border-radius: 24px;
+    min-height: auto;
+    overflow: hidden;
+    gap: 16px;
+  }
+}
+
+.cardBody {
+  @include flex-column;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+
+  @include mobile {
+    align-items: center;
+    text-align: center;
+    max-width: 100% !important;
+    gap: 12px;
+  }
+
+  &.hasImage {
+    max-width: calc(100% - 150px);
+
+    @include mobile {
+      max-width: 100% !important;
+    }
+  }
+
+  &.hasJeep {
+    max-width: calc(100% - 430px);
+
+    .description {
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    @include tablet {
+      max-width: calc(100% - 325px);
+
+      .description {
+        font-size: 0.84rem;
+      }
+    }
+
+    @include mobile {
+      max-width: 100% !important;
+      padding-bottom: 0;
+
+      .description {
+        font-size: 0.86rem;
+        line-height: 1.55;
+        display: block;
+        -webkit-line-clamp: unset;
+        text-align: center;
+        max-width: 100%;
+      }
+    }
+  }
+
+  &.hasFleet {
+    max-width: 540px;
+
+    .description {
+      max-width: 505px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    @include tablet {
+      max-width: calc(100% - 400px);
+
+      .description {
+        max-width: 380px;
+        font-size: 0.84rem;
+      }
+    }
+
+    @include mobile {
+      max-width: 100% !important;
+      padding-bottom: 0;
+
+      .description {
+        max-width: 100%;
+        font-size: 0.86rem;
+        line-height: 1.55;
+        display: block;
+        -webkit-line-clamp: unset;
+        text-align: center;
+      }
+    }
+  }
+
+  @include mobile {
+    gap: 12px;
+
+    .description {
+      display: block;
+      -webkit-line-clamp: unset;
+      text-align: center;
+      max-width: 100%;
+    }
+  }
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+.iconCircle {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  @include flex-center;
+  color: var(--Secondary);
+  flex-shrink: 0;
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  letter-spacing: 0.2px;
+  width: fit-content;
+
+  span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--Secondary);
+    box-shadow: 0 0 8px rgba(247, 146, 30, 0.8);
+  }
+
+  @include mobile {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+
+  span {
+    color: var(--Secondary);
+  }
+
+  @include mobile {
+    font-size: 1.65rem;
+    line-height: 1.25;
+    text-align: center;
+  }
+}
+
+.description {
+  font-size: 0.95rem;
+  color: #CBD5E0;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 760px;
+
+  @include mobile {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    text-align: center;
+    max-width: 100%;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+}
+
+.travelerWrap {
+  position: absolute !important;
+  right: 28px !important;
+  bottom: 0 !important;
+  width: 140px !important;
+  max-width: 25% !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  pointer-events: auto !important;
+  z-index: 3 !important;
+
+  @include mobile {
+    position: relative !important;
+    right: auto !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+  }
+}
+
+.travelerImg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 255px !important;
+  object-fit: contain !important;
+  object-position: bottom right !important;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28)) !important;
+  transform-origin: bottom right !important;
+
+  @include mobile {
+    width: 100% !important;
+    max-height: 250px !important;
+    object-position: bottom center !important;
+    display: block !important;
+    vertical-align: bottom !important;
+  }
+}
+
+.jeepWrap {
+  position: absolute !important;
+  right: 85px !important;
+  bottom: 0 !important;
+  width: 345px !important;
+  max-width: 42% !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  pointer-events: auto !important;
+  z-index: 5 !important;
+
+  @include tablet {
+    right: 36px !important;
+    bottom: 0 !important;
+    width: 280px !important;
+    max-width: 38% !important;
+  }
+
+  @include mobile {
+    position: relative !important;
+    right: auto !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+  }
+}
+
+.jeepImg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 360px !important;
+  object-fit: contain !important;
+  object-position: bottom right !important;
+  filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.38)) !important;
+  transform-origin: bottom right !important;
+
+  @include tablet {
+    max-height: 300px !important;
+  }
+
+  @include mobile {
+    width: 100% !important;
+    max-height: 280px !important;
+    object-position: bottom center !important;
+    display: block !important;
+    vertical-align: bottom !important;
+  }
+}
+
+.fleetWrap {
+  position: absolute !important;
+  right: 20px !important;
+  bottom: 0 !important;
+  width: 580px !important;
+  max-width: 54% !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  pointer-events: auto !important;
+  z-index: 5 !important;
+
+  @include tablet {
+    right: 14px !important;
+    bottom: 0 !important;
+    width: 420px !important;
+    max-width: 48% !important;
+  }
+
+  @include mobile {
+    position: relative !important;
+    right: auto !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+  }
+}
+
+.fleetImg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 320px !important;
+  object-fit: contain !important;
+  object-position: bottom right !important;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.35)) !important;
+  transform-origin: bottom right !important;
+
+  @include tablet {
+    max-height: 250px !important;
+  }
+
+  @include mobile {
+    width: 100% !important;
+    max-height: 280px !important;
+    object-position: bottom center !important;
+    display: block !important;
+    vertical-align: bottom !important;
+  }
+}
+
+
+

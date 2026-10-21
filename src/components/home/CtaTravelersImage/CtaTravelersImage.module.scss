@@ -1,0 +1,87 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.imageWrap {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+  width: 660px;
+  max-width: 55%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 3;
+  pointer-events: auto;
+
+  @include tablet {
+    right: 16px;
+    bottom: 0;
+    width: 440px;
+    max-width: 48%;
+  }
+
+  @include mobile {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 16px;
+    margin-bottom: 0;
+    justify-content: center;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  display: block;
+  object-fit: contain;
+  object-position: bottom right;
+  vertical-align: bottom;
+  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.35));
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: bottom center;
+  transition: transform 0.25s cubic-bezier(0.24, 0.74, 0.58, 1);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.jumping {
+    animation: ctaClickJump 0.85s cubic-bezier(0.28, 0.84, 0.42, 1);
+  }
+
+  @include mobile {
+    max-height: 280px;
+    object-position: bottom center;
+  }
+}
+
+@keyframes ctaClickJump {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-42px) scale(1.06) rotate(-1.5deg);
+  }
+  40% {
+    transform: translateY(-14px) scale(1.02) rotate(1.5deg);
+  }
+  60% {
+    transform: translateY(-26px) scale(1.04) rotate(-1deg);
+  }
+  80% {
+    transform: translateY(-6px) scale(1.01) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}

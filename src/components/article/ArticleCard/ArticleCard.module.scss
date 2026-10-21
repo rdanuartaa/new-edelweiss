@@ -1,0 +1,81 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.card {
+  @include card-surface;
+  overflow: hidden;
+  @include flex-column;
+  height: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: $dark-surface;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.06);
+  }
+}
+
+.tagBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+
+.body {
+  padding: 20px;
+  @include flex-column;
+  gap: 10px;
+  flex: 1;
+}
+
+.dateRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $dark;
+  @include text-truncate(2);
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 0.88rem;
+  color: $text-secondary;
+  @include text-truncate(3);
+  line-height: 1.5;
+}
+
+.readMore {
+  margin-top: auto;
+  padding-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $primary;
+  transition: gap $transition-fast;
+
+  &:hover {
+    gap: 10px;
+    color: $primary-hover;
+  }
+}

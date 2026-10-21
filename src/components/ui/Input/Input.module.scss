@@ -1,0 +1,63 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.wrapper {
+  @include flex-column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $dark;
+}
+
+.required {
+  color: $danger;
+  margin-left: 2px;
+}
+
+.inputControl {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: $text-primary;
+  background-color: $bg-white;
+  border: 1.5px solid $border-light;
+  border-radius: $radius-md;
+  transition: all $transition-fast;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.15);
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:disabled {
+    background-color: $bg-body;
+    cursor: not-allowed;
+  }
+}
+
+.hasError {
+  border-color: $danger;
+
+  &:focus {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.15);
+  }
+}
+
+.errorText {
+  font-size: 0.8rem;
+  color: $danger;
+}
+
+.helperText {
+  font-size: 0.8rem;
+  color: $text-muted;
+}

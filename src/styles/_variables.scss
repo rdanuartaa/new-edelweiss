@@ -1,0 +1,82 @@
+:root {
+  --Primary: #63AB45;
+  --Primary-Hover: #4e8836;
+  --Primary-50: #eef6ec;
+  --Primary-100: #d6edd0;
+  --Primary-500: #63AB45;
+  --Primary-600: #55963b;
+  --Primary-700: #467d31;
+
+  --Secondary: #F7921E;
+  --Secondary-Hover: #d87b12;
+  --Secondary-Light: #fef4e8;
+
+  --Heading: #1E2833;
+  --Heading-Light: #263342;
+  --Text: #5E626B;
+  --Text-Muted: #8C93A0;
+  --Text-White: #ffffff;
+
+  --White: #ffffff;
+  --Line: #e2e8f0;
+  --Background: #ffffff;
+  --Background-Alt: #f8fafc;
+
+  --Success: #10B981;
+  --Warning: #F59E0B;
+  --Danger: #EF4444;
+
+  --Shadow-sm: 0 2px 8px rgba(30, 40, 51, 0.04);
+  --Shadow-md: 0 4px 18px rgba(0, 0, 0, 0.08);
+  --Shadow-lg: 0 10px 25px -5px rgba(30, 40, 51, 0.08);
+  --Shadow-hover: 0 20px 30px -10px rgba(99, 171, 69, 0.22);
+
+  --Transition-fast: all 0.2s ease;
+  --Transition-normal: all 0.3s cubic-bezier(0.24, 0.74, 0.58, 1);
+  --Transition-slow: all 0.5s cubic-bezier(0.24, 0.74, 0.58, 1);
+}
+
+$primary: #63AB45;
+$primary-hover: #4e8836;
+$primary-light: #eef6ec;
+
+$secondary: #F7921E;
+$secondary-hover: #d87b12;
+$secondary-light: #fef4e8;
+
+$dark: #1E2833;
+$dark-surface: #161921;
+$dark-hover: #263342;
+
+$text-primary: #1E2833;
+$text-secondary: #5E626B;
+$text-muted: #8C93A0;
+$text-light: #FFFFFF;
+
+$bg-body: #F8F9FA;
+$bg-white: #FFFFFF;
+$bg-card: #FFFFFF;
+
+$border-light: #E5E7EB;
+$border-focus: #63AB45;
+
+$danger: #EF4444;
+$danger-hover: #DC2626;
+$danger-light: #FEE2E2;
+
+$success: #10B981;
+$warning: #F59E0B;
+
+$shadow-sm: 0 2px 8px rgba(30, 40, 51, 0.04);
+$shadow-md: 0 4px 18px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 10px 25px -5px rgba(30, 40, 51, 0.08);
+$shadow-xl: 0 20px 30px -10px rgba(99, 171, 69, 0.22);
+
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 14px;
+$radius-full: 9999px;
+
+$transition-fast: all 0.2s ease;
+$transition-normal: all 0.3s cubic-bezier(0.24, 0.74, 0.58, 1);
+$transition-slow: all 0.5s cubic-bezier(0.24, 0.74, 0.58, 1);

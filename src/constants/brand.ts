@@ -1,0 +1,21 @@
+export const BRAND = {
+  NAME: 'Edelweiss Tour & Travel',
+  TAGLINE: 'Tour & Travels Advanture',
+  DESCRIPTION: 'Jelajahi keindahan alam Indonesia bersama Edelweiss Tour & Travel. Spesialis Lava Tour Semeru, paket wisata Bromo, Pronojiwo, Sumber Urip, dan petualangan seru lainnya.',
+  PHONE: '+62 822-4410-4821',
+  EMAIL: 'info@edelweisstour.com',
+  ADDRESS: 'Lumajang, Jawa Timur, Indonesia',
+  SOCIALS: {
+    INSTAGRAM: 'https://instagram.com/edelweisstour_traveladventure',
+    TIKTOK: 'https://tiktok.com/@edelweisstour_traveladventure',
+    INSTAGRAM_HANDLE: '@edelweisstour_traveladventure',
+    TIKTOK_HANDLE: '@edelweisstour_traveladventure',
+    FACEBOOK: 'https://facebook.com/edelweisstour',
+    WHATSAPP: 'https://wa.me/6282244104821?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20tentang%20paket%20wisata%20Edelweiss%20Tour%20and%20Travel%20Advanture%20Lumajang',
+  },
+  LOGO_WHITE: '/images/logo_white.svg',
+  LOGO_BLACK: '/images/logo_black.svg',
+  LOGO_ICON: '/images/logoicon.svg',
+  DEFAULT_BANNER: '/images/banner_atv.jpg',
+  DEFAULT_POSTER: '/images/poster_lavatour.jpg',
+} as const;

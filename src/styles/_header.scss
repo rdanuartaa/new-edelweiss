@@ -1,0 +1,245 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.header-main {
+  position: relative;
+  z-index: 950;
+  background-color: var(--White);
+  border-bottom: 1px solid var(--Line);
+  transition: all 0.35s ease;
+
+  .container {
+    max-width: 1380px;
+    padding-left: 32px;
+    padding-right: 32px;
+
+    @include mobile {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  .header-inner {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  &.header-sticky {
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    opacity: 0;
+    z-index: 9999;
+    transform: translateY(-120%);
+    transition: 0.5s cubic-bezier(0.24, 0.74, 0.58, 1);
+    visibility: hidden;
+    background-color: rgba(22, 25, 33, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+
+    .header-inner {
+      height: 78px;
+    }
+
+    &.is-sticky {
+      transform: translateY(0);
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+
+      .logo-container img {
+        height: 54px;
+
+        @include mobile {
+          height: 44px;
+        }
+      }
+    }
+  }
+
+  &.header-transparent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 950;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: none !important;
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.88);
+
+      &:hover {
+        color: #ffffff;
+      }
+
+      &.active {
+        color: #A3E689;
+      }
+    }
+
+    .mobile-search-form {
+      .mobile-search-input {
+        background-color: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        &:focus {
+          background-color: rgba(255, 255, 255, 0.22);
+          border-color: var(--Primary);
+        }
+      }
+
+      .mobile-search-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 64px;
+      width: auto;
+      max-width: 250px;
+      object-fit: contain;
+      transition: transform 0.3s ease, height 0.3s ease;
+
+      @include mobile {
+        height: 48px;
+        max-width: 185px;
+      }
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  .nav-link {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.25s ease;
+    text-decoration: none;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &.active {
+      color: #A3E689;
+    }
+
+    &.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2.5px;
+      background-color: var(--Primary);
+      border-radius: 9999px;
+    }
+  }
+
+  .nav-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .nav-search-input {
+      height: 38px;
+      padding: 0 14px 0 36px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      outline: none;
+      width: 180px;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      &:focus {
+        width: 230px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: var(--Primary);
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      width: 16px;
+      height: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+    }
+  }
+
+  .mobile-search-form {
+    display: none;
+    position: relative;
+    flex: 1;
+    max-width: 220px;
+
+    @include mobile {
+      display: block;
+    }
+
+    .mobile-search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px 0 32px;
+      border-radius: 8px;
+      font-size: 13px;
+      background-color: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      outline: none;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.65);
+      }
+    }
+
+    .mobile-search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+}

@@ -1,0 +1,413 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  @include flex-center;
+  background-image: linear-gradient(rgba(22, 25, 33, 0.65), rgba(22, 25, 33, 0.75)), url('/images/poster_bromo.jpg');
+  background-size: cover;
+  background-position: center;
+  color: $bg-white;
+  text-align: center;
+  padding: 140px 20px 90px;
+
+  @include mobile {
+    min-height: 600px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 120px 20px 60px;
+  }
+}
+
+.heroContent {
+  max-width: 840px;
+  @include flex-column;
+  align-items: center;
+  gap: 20px;
+}
+
+.heroTag {
+  background-color: rgba(99, 171, 69, 0.25);
+  border: 1px solid $primary;
+  color: #A3E689;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: $radius-full;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: $bg-white;
+  line-height: 1.15;
+  letter-spacing: -1px;
+
+  span {
+    color: $secondary;
+  }
+
+  @include mobile {
+    font-size: 2.2rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: #E2E8F0;
+  max-width: 680px;
+  line-height: 1.6;
+
+  @include mobile {
+    font-size: 1rem;
+  }
+}
+
+.heroCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+
+  a {
+    display: inline-flex;
+  }
+
+  button {
+    width: 240px;
+    height: 52px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+
+    a {
+      width: 100%;
+      display: flex;
+    }
+
+    button {
+      width: 100%;
+      height: 48px;
+    }
+  }
+}
+
+.sectionHeader {
+  @include flex-between;
+  margin-bottom: 40px;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.sectionTitleCol {
+  @include flex-column;
+  gap: 6px;
+
+  @include mobile {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.sectionTag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: $primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sectionTitle {
+  font-size: 2.1rem;
+  color: $dark;
+  font-weight: 800;
+
+  @include mobile {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+.packageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.whySection {
+  padding: 68px 0;
+  background-color: #F4FAF1;
+
+  @include mobile {
+    padding: 38px 14px 20px;
+    background-color: transparent;
+  }
+}
+
+.whyWrapper {
+  @include mobile {
+    background-color: #F4FAF1;
+    border-radius: 22px;
+    padding: 28px 20px;
+    border: 1px solid rgba(99, 171, 69, 0.22);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.whyDesktop {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.whyTitleCol {
+  @include flex-column;
+  justify-content: center;
+  height: 100%;
+
+  @include tablet {
+    grid-column: span 2;
+  }
+}
+
+.whyMainTitle {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #1E2833;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin: 0;
+
+  @include tablet {
+    font-size: 1.6rem;
+  }
+}
+
+.whyFeatureItem {
+  @include flex-column;
+  gap: 16px;
+}
+
+.whyFeatureIcon {
+  color: var(--Primary);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: var(--Primary);
+  }
+}
+
+.whyFeatureBody {
+  @include flex-column;
+  gap: 8px;
+}
+
+.whyFeatureTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E2833;
+  margin: 0;
+}
+
+.whyFeatureDesc {
+  font-size: 0.9rem;
+  color: #4A5568;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.whyMobile {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.whyMobileTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1E2833;
+  text-transform: uppercase;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.whyMobileList {
+  @include flex-column;
+  gap: 20px;
+}
+
+.whyMobileItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.whyMobileIcon {
+  color: var(--Primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: var(--Primary);
+  }
+}
+
+.whyMobileBody {
+  @include flex-column;
+  gap: 4px;
+}
+
+.whyMobileItemTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E2833;
+  margin: 0;
+}
+
+.whyMobileItemDesc {
+  font-size: 0.88rem;
+  color: #4A5568;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.popularSection {
+  padding-top: 80px;
+  padding-bottom: 16px;
+
+  @include mobile {
+    padding-top: 48px;
+    padding-bottom: 12px;
+  }
+}
+
+.ctaWrapper {
+  padding-top: 95px;
+  padding-bottom: 40px;
+  overflow: visible;
+
+  @include tablet {
+    padding-top: 75px;
+  }
+
+  @include mobile {
+    padding-top: 56px;
+    padding-bottom: 30px;
+  }
+}
+
+.ctaSection {
+  background: linear-gradient(135deg, #161921 0%, #1e2833 60%, #202e3b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 56px 48px;
+  color: $bg-white;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  min-height: 270px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+
+  @include tablet {
+    padding: 44px 32px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 20px 0;
+    overflow: hidden;
+    gap: 16px;
+  }
+}
+
+.ctaContent {
+  max-width: 500px;
+  @include flex-column;
+  align-items: flex-start;
+  gap: 16px;
+  z-index: 2;
+  position: relative;
+
+  @include tablet {
+    max-width: 400px;
+  }
+
+  @include mobile {
+    align-items: center;
+    max-width: 100%;
+  }
+}
+
+.ctaTitle {
+  font-size: 2.2rem;
+  color: $bg-white;
+  font-weight: 800;
+  line-height: 1.25;
+
+  span {
+    color: var(--Secondary);
+  }
+
+  @include mobile {
+    font-size: 1.65rem;
+  }
+}
+
+.ctaSubtitle {
+  font-size: 1rem;
+  color: #CBD5E0;
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+.ctaAction {
+  margin-top: 10px;
+}
+

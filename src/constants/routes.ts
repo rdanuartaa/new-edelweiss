@@ -1,0 +1,20 @@
+export const ROUTES = {
+  HOME: '/',
+  PACKAGES: '/packages',
+  PACKAGE_DETAIL: (id: string | number) => `/packages/${id}`,
+  ARTICLES: '/articles',
+  ARTICLE_DETAIL: (slugOrId: string | number) => `/articles/${slugOrId}`,
+  SERVICES: '/layanan',
+  ABOUT: '/about',
+  CONTACT: '/contact',
+  ADMIN: {
+    DASHBOARD: '/admin',
+    LOGIN: '/admin/login',
+    PACKAGES: '/admin/packages',
+    PACKAGE_CREATE: '/admin/packages/create',
+    PACKAGE_EDIT: (id: string | number) => `/admin/packages/edit/${id}`,
+    ARTICLES: '/admin/articles',
+    ARTICLE_CREATE: '/admin/articles/create',
+    ARTICLE_EDIT: (id: string | number) => `/admin/articles/edit/${id}`,
+  },
+} as const;

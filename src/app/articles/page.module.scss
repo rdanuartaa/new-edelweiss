@@ -1,0 +1,138 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.banner {
+  background-color: $dark-surface;
+  background-image: linear-gradient(rgba(22, 25, 33, 0.75), rgba(22, 25, 33, 0.85)), url('/images/poster_lavatour.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 155px 20px 155px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  @include mobile {
+    padding: 125px 16px 100px;
+    min-height: 360px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+  }
+}
+
+.bannerTitle {
+  font-size: 2.5rem;
+  color: $bg-white;
+  font-weight: 800;
+  margin-bottom: 12px;
+
+  @include mobile {
+    font-size: 1.85rem;
+  }
+}
+
+.bannerSubtitle {
+  font-size: 1.05rem;
+  color: #CBD5E0;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include mobile {
+    font-size: 0.9rem;
+  }
+}
+
+.highlightCardWrapper {
+  margin-top: 60px;
+  margin-bottom: 52px;
+
+  @include mobile {
+    margin-top: 50px;
+    margin-bottom: 36px;
+  }
+}
+
+.tagsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 48px;
+
+  @include mobile {
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+}
+
+.tagBtn {
+  padding: 12px 26px;
+  border-radius: $radius-full;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: $bg-white;
+  border: 1.5px solid $border-light;
+  color: $text-secondary;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  &.active {
+    background-color: $primary;
+    border-color: $primary;
+    color: $bg-white;
+    box-shadow: 0 6px 20px rgba(99, 171, 69, 0.35);
+    transform: translateY(-2px);
+  }
+
+  @include mobile {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-secondary;
+}
+
+.desktopBr {
+  display: inline;
+
+  @include tablet {
+    display: none;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}

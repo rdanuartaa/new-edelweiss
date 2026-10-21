@@ -1,0 +1,108 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 950;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all $transition-normal;
+}
+
+.scrolled {
+  background-color: rgba(22, 25, 33, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.navContainer {
+  @include flex-between;
+  height: 82px;
+  transition: height $transition-fast;
+}
+
+.scrolled .navContainer {
+  height: 72px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 42px;
+    width: auto;
+    max-width: 170px;
+    object-fit: contain;
+  }
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.navLink {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  transition: all $transition-fast;
+  position: relative;
+  padding: 6px 0;
+  letter-spacing: 0.2px;
+
+  &:hover {
+    color: #FFFFFF;
+  }
+
+  &.active {
+    color: #A3E689;
+  }
+
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    background-color: $primary;
+    border-radius: $radius-full;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.adminLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: $bg-white;
+  padding: 8px 14px;
+  border-radius: $radius-md;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: $primary;
+    border-color: $primary;
+    color: $bg-white;
+  }
+}

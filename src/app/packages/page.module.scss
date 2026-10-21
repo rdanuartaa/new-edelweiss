@@ -1,0 +1,101 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.banner {
+  background-color: $dark-surface;
+  background-image: linear-gradient(rgba(22, 25, 33, 0.7), rgba(22, 25, 33, 0.8)), url('/images/banner_atv.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 155px 20px 155px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  @include mobile {
+    padding: 125px 16px 100px;
+    min-height: 360px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+  }
+}
+
+.bannerTitle {
+  font-size: 2.5rem;
+  color: $bg-white;
+  font-weight: 800;
+  margin-bottom: 12px;
+
+  @include mobile {
+    font-size: 1.85rem;
+  }
+}
+
+.bannerSubtitle {
+  font-size: 1.05rem;
+  color: #CBD5E0;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include mobile {
+    font-size: 0.9rem;
+  }
+}
+
+.highlightCardWrapper {
+  margin-top: 60px;
+  margin-bottom: 24px;
+
+  @include mobile {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+}
+
+.filterBar {
+  margin-top: 0;
+  background-color: $bg-white;
+  border-radius: $radius-lg;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  padding: 20px 28px;
+  border: 1px solid $border-light;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @include mobile {
+    flex-direction: column;
+    padding: 16px;
+  }
+}
+
+.filterCol {
+  flex: 1;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-secondary;
+}
