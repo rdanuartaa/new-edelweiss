@@ -13,6 +13,7 @@ import { ArticleCard } from '@/components/article/ArticleCard/ArticleCard';
 import { Button } from '@/components/ui/Button/Button';
 import { Carousel } from '@/components/ui/Carousel/Carousel';
 import { CtaTravelersImage } from '@/components/home/CtaTravelersImage/CtaTravelersImage';
+import { HeroBackgroundSlider } from '@/components/home/HeroBackgroundSlider/HeroBackgroundSlider';
 
 export default async function HomePage() {
   const [packages, articles] = await Promise.all([
@@ -47,6 +48,7 @@ export default async function HomePage() {
 
       <main>
         <section className={styles.hero}>
+          <HeroBackgroundSlider />
           <div className={styles.heroContent}>
             <span className={styles.heroTag}>Tour & Travels Advanture</span>
             <h1 className={styles.heroTitle}>

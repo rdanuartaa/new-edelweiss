@@ -5,24 +5,24 @@
   position: relative;
   min-height: 100vh;
   @include flex-center;
-  background-image: linear-gradient(rgba(22, 25, 33, 0.65), rgba(22, 25, 33, 0.75)), url('/images/poster_bromo.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: $dark-surface;
   color: $bg-white;
   text-align: center;
   padding: 140px 20px 90px;
+  overflow: hidden;
 
   @include mobile {
     min-height: 600px;
     border-bottom-left-radius: 28px;
     border-bottom-right-radius: 28px;
-    overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     padding: 120px 20px 60px;
   }
 }
 
 .heroContent {
+  position: relative;
+  z-index: 3;
   max-width: 840px;
   @include flex-column;
   align-items: center;
