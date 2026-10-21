@@ -259,27 +259,21 @@ export const LanguageSwitcher: React.FC = () => {
   };
 
   const handleSelectLanguage = (lang: LanguageOption) => {
-    if (lang.code === selectedLang) {
-      setIsOpen(false);
-      return;
-    }
-
-    setSelectedLang(lang.code);
     setIsOpen(false);
 
     if (lang.code === 'id') {
       clearGoogtransCookies();
-    } else {
-      setGoogtransCookie(lang.code);
+      setSelectedLang('id');
+      window.location.reload();
+      return;
     }
 
-    window.location.reload();
-  };
+    if (lang.code === selectedLang) {
+      return;
+    }
 
-  const handleResetLanguage = () => {
-    clearGoogtransCookies();
-    setSelectedLang('id');
-    setIsOpen(false);
+    setSelectedLang(lang.code);
+    setGoogtransCookie(lang.code);
     window.location.reload();
   };
 
@@ -380,15 +374,6 @@ export const LanguageSwitcher: React.FC = () => {
               <p className={styles.footerNote}>
                 Didukung penerjemahan instan multi-bahasa
               </p>
-              {selectedLang !== 'id' && (
-                <button
-                  type="button"
-                  onClick={handleResetLanguage}
-                  className={styles.resetBtn}
-                >
-                  Reset ke Bahasa Indonesia
-                </button>
-              )}
             </div>
           </div>
         </div>
