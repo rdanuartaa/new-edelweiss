@@ -353,6 +353,11 @@
   align-items: center;
   min-height: 270px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   @include tablet {
     padding: 44px 32px;
@@ -364,6 +369,7 @@
     padding: 36px 20px 0;
     overflow: hidden;
     gap: 16px;
+    border-radius: 20px;
   }
 }
 
@@ -374,6 +380,8 @@
   gap: 16px;
   z-index: 2;
   position: relative;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 
   @include tablet {
     max-width: 400px;
@@ -382,6 +390,7 @@
   @include mobile {
     align-items: center;
     max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -409,5 +418,22 @@
 
 .ctaAction {
   margin-top: 10px;
+
+  @include mobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    a {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+
+      > button {
+        width: 100%;
+      }
+    }
+  }
 }
+
 

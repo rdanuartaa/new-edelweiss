@@ -6,6 +6,15 @@ import { BottomNav } from '@/components/common/BottomNav/BottomNav';
 export const metadata: Metadata = {
   title: `${BRAND.NAME} - ${BRAND.TAGLINE}`,
   description: BRAND.DESCRIPTION,
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/images/logoicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/icon.png',
+  },
 };
 
 export default function RootLayout({

@@ -12,6 +12,8 @@
   align-items: flex-end;
   z-index: 3;
   pointer-events: auto;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 
   @include tablet {
     right: 16px;
@@ -46,13 +48,17 @@
   -webkit-user-drag: none;
   transform-origin: bottom center;
   transition: transform 0.25s cubic-bezier(0.24, 0.74, 0.58, 1);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.02) translateZ(0);
   }
 
   &:active {
-    transform: scale(0.97);
+    transform: scale(0.97) translateZ(0);
   }
 
   &.jumping {
@@ -62,6 +68,7 @@
   @include mobile {
     max-height: 280px;
     object-position: bottom center;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
   }
 }
 

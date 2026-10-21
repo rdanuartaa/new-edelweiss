@@ -248,6 +248,11 @@
   position: relative;
   overflow: visible;
   margin-top: 65px;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   @include tablet {
     padding: 34px 28px;
@@ -259,7 +264,7 @@
     flex-direction: column;
     text-align: center;
     padding: 36px 20px 0;
-    border-radius: 24px;
+    border-radius: 20px;
     min-height: auto;
     overflow: hidden;
     gap: 16px;
@@ -275,6 +280,8 @@
   position: relative;
   z-index: 2;
   max-width: calc(100% - 570px);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 
   @include tablet {
     max-width: calc(100% - 440px);
