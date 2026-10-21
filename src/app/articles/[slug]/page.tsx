@@ -30,34 +30,7 @@ export default function ArticleDetailPage() {
     fetchArticle();
   }, [slug]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Navbar />
-        <div className="container section-py" style={{ textAlign: 'center' }}>
-          <p>Memuat artikel...</p>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
-  if (!article) {
-    return (
-      <>
-        <Navbar />
-        <div className="container section-py" style={{ textAlign: 'center' }}>
-          <h2>Artikel tidak ditemukan.</h2>
-          <Link href={ROUTES.ARTICLES} style={{ marginTop: '16px', display: 'inline-block' }}>
-            <Button variant="primary">Kembali ke Daftar Artikel</Button>
-          </Link>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
-  const shareText = encodeURIComponent(`Baca artikel menarik: "${article.judul}" di Edelweiss Tour & Travel`);
+  const shareText = encodeURIComponent(`Baca artikel menarik: "${article?.judul || ''}" di Edelweiss Tour & Travel`);
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappShare = `https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}`;
 
@@ -66,13 +39,26 @@ export default function ArticleDetailPage() {
       <Navbar />
 
       <main>
-        <section
-          className={styles.heroBanner}
-          style={{
-            backgroundImage: `linear-gradient(rgba(22, 25, 33, 0.75), rgba(22, 25, 33, 0.85)), url('${article.gambar || '/images/poster_lavatour.jpg'}')`,
-          }}
-        >
-          <div className={`container ${styles.heroContent}`}>
+        {isLoading ? (
+          <div className="container section-py" style={{ textAlign: 'center', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p style={{ color: '#8C93A0' }}>Memuat artikel...</p>
+          </div>
+        ) : !article ? (
+          <div className="container section-py" style={{ textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <h2>Artikel tidak ditemukan.</h2>
+            <Link href={ROUTES.ARTICLES} style={{ marginTop: '16px', display: 'inline-block' }}>
+              <Button variant="primary">Kembali ke Daftar Artikel</Button>
+            </Link>
+          </div>
+        ) : (
+          <>
+            <section
+              className={styles.heroBanner}
+              style={{
+                backgroundImage: `linear-gradient(rgba(22, 25, 33, 0.75), rgba(22, 25, 33, 0.85)), url('${article.gambar || '/images/poster_lavatour.jpg'}')`,
+              }}
+            >
+              <div className={`container ${styles.heroContent}`}>
             <div className={styles.metaRow}>
               <span className={styles.tagBadge}>{article.tags?.nama || 'Wisata'}</span>
               <div className={styles.date}>
@@ -128,9 +114,11 @@ export default function ArticleDetailPage() {
             </a>
           </div>
         </article>
-      </main>
+      </>
+    )}
+  </main>
 
-      <Footer />
-    </>
-  );
+  <Footer />
+</>
+);
 }

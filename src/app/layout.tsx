@@ -3,6 +3,7 @@ import '@/styles/globals.scss';
 import { BRAND } from '@/constants/brand';
 import { BottomNav } from '@/components/common/BottomNav/BottomNav';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher/LanguageSwitcher';
+import { TranslationPatch } from '@/components/common/TranslationPatch/TranslationPatch';
 
 export const metadata: Metadata = {
   title: `${BRAND.NAME} - ${BRAND.TAGLINE}`,
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="id" data-scroll-behavior="smooth">
       <body>
+        <TranslationPatch />
         {children}
         <BottomNav />
         <LanguageSwitcher />
