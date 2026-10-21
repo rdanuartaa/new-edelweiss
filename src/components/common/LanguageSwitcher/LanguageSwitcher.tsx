@@ -99,6 +99,29 @@ export const LanguageSwitcher: React.FC = () => {
   }, [pathname]);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const sanitizeBody = () => {
+      if (document.body.style.top && document.body.style.top !== '0px') {
+        document.body.style.top = '0px';
+      }
+      const frames = document.querySelectorAll(
+        'iframe.skiptranslate, iframe[id*=":1.container"], .VIpgJd-ZVi9od-ORHb-OEVmcd, body > .skiptranslate'
+      );
+      frames.forEach((el) => {
+        const h = el as HTMLElement;
+        h.style.setProperty('display', 'none', 'important');
+        h.style.setProperty('visibility', 'hidden', 'important');
+      });
+    };
+
+    sanitizeBody();
+    const observer = new MutationObserver(sanitizeBody);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['style'], childList: true });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
         setIsOpen(false);
