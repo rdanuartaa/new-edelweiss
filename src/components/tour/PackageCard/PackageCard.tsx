@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MapPin, ArrowRight } from 'lucide-react';
 import styles from './PackageCard.module.scss';
 import { Package } from '@/types';
-import { formatRupiah } from '@/utils/format';
+import { formatRupiah, formatLocation } from '@/utils/format';
 import { ROUTES } from '@/constants/routes';
 import { Button } from '@/components/ui/Button/Button';
 
@@ -24,7 +24,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({ pkg }) => {
         <img src={displayImage} alt={pkg.name} />
         <span className={styles.locationBadge}>
           <MapPin size={12} />
-          {pkg.location}
+          {formatLocation(pkg.location)}
         </span>
       </div>
 

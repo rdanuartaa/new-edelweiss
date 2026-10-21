@@ -7,7 +7,7 @@ import { MapPin, CheckCircle, MessageCircle, ArrowLeft, Clock, ImageIcon, FileTe
 import styles from './page.module.scss';
 import { Package } from '@/types';
 import { packageService } from '@/services/packageService';
-import { formatRupiah } from '@/utils/format';
+import { formatRupiah, formatLocation } from '@/utils/format';
 import { BRAND } from '@/constants/brand';
 import { ROUTES } from '@/constants/routes';
 import { Navbar } from '@/components/common/Navbar/Navbar';
@@ -87,7 +87,7 @@ export default function PackageDetailPage() {
           <div className={`container ${styles.heroContent}`}>
             <span className={styles.locationRow}>
               <MapPin size={14} />
-              {pkg.location}
+              {formatLocation(pkg.location)}
             </span>
 
             <h1 className={styles.title}>{pkg.name}</h1>

@@ -34,3 +34,11 @@ export const slugify = (text: string): string => {
     .replace(/^-+|-+$/g, '');
 };
 
+export const formatLocation = (location?: string, maxWords: number = 3): string => {
+  if (!location) return '';
+  const words = location.trim().split(/\s+/);
+  if (words.length <= maxWords) return location.trim();
+  return words.slice(0, maxWords).join(' ');
+};
+
+

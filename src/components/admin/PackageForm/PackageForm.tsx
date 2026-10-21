@@ -160,10 +160,10 @@ export const PackageForm: React.FC<PackageFormProps> = ({
             required
           />
           <Input
-            label="Lokasi Destinasi"
+            label="Lokasi Destinasi (Maks. 3 Kata)"
             value={formData.location}
             onChange={(e) => handleTextChange('location', e.target.value)}
-            placeholder="Contoh: Gunung Bromo, Jawa Timur"
+            placeholder="Contoh: Bromo, Jawa Timur"
             required
           />
         </div>
