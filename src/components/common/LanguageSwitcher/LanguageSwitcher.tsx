@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { Globe, X, Search, Check, ChevronUp } from 'lucide-react';
 import styles from './LanguageSwitcher.module.scss';
@@ -25,6 +25,41 @@ export const LanguageSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('id');
   const [searchQuery, setSearchQuery] = useState('');
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
+  const [isSnapping, setIsSnapping] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dragInfo = useRef({
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    initX: 0,
+    initY: 0,
+    hasMoved: false,
+  });
+
+  const getInitialPosition = useCallback(() => {
+    if (typeof window === 'undefined') return { x: 28, y: 500 };
+    const isMobile = window.innerWidth <= 768;
+    const defaultX = isMobile ? 16 : 28;
+    const defaultY = isMobile ? window.innerHeight - 130 : window.innerHeight - 80;
+    return { x: defaultX, y: Math.max(20, defaultY) };
+  }, []);
+
+  useEffect(() => {
+    setPosition(getInitialPosition());
+    const handleResize = () => {
+      setPosition((prev) => {
+        if (!prev) return getInitialPosition();
+        const btnW = buttonRef.current?.offsetWidth || 75;
+        const btnH = buttonRef.current?.offsetHeight || 38;
+        const clampedX = Math.max(10, Math.min(window.innerWidth - btnW - 10, prev.x));
+        const clampedY = Math.max(10, Math.min(window.innerHeight - btnH - 10, prev.y));
+        return { x: clampedX, y: clampedY };
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getInitialPosition]);
 
   useEffect(() => {
     const saved = localStorage.getItem('edelweiss_language');
@@ -88,6 +123,76 @@ export const LanguageSwitcher: React.FC = () => {
     );
   }, [searchQuery]);
 
+  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.button !== 0) return;
+    const currentX = position?.x ?? (buttonRef.current?.getBoundingClientRect().left || 28);
+    const currentY = position?.y ?? (buttonRef.current?.getBoundingClientRect().top || 500);
+
+    dragInfo.current = {
+      isDragging: true,
+      startX: e.clientX,
+      startY: e.clientY,
+      initX: currentX,
+      initY: currentY,
+      hasMoved: false,
+    };
+
+    setIsSnapping(false);
+
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      if (!dragInfo.current.isDragging) return;
+      const dx = moveEvent.clientX - dragInfo.current.startX;
+      const dy = moveEvent.clientY - dragInfo.current.startY;
+
+      if (!dragInfo.current.hasMoved && Math.hypot(dx, dy) > 5) {
+        dragInfo.current.hasMoved = true;
+      }
+
+      if (dragInfo.current.hasMoved) {
+        const btnW = buttonRef.current?.offsetWidth || 75;
+        const btnH = buttonRef.current?.offsetHeight || 38;
+        const isMobile = window.innerWidth <= 768;
+        const bottomInset = isMobile ? 75 : 10;
+
+        const nextX = Math.max(10, Math.min(window.innerWidth - btnW - 10, dragInfo.current.initX + dx));
+        const nextY = Math.max(10, Math.min(window.innerHeight - btnH - bottomInset, dragInfo.current.initY + dy));
+        setPosition({ x: nextX, y: nextY });
+      }
+    };
+
+    const onPointerUp = () => {
+      if (!dragInfo.current.isDragging) return;
+      dragInfo.current.isDragging = false;
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+
+      if (!dragInfo.current.hasMoved) {
+        setIsOpen(true);
+        return;
+      }
+
+      const btnW = buttonRef.current?.offsetWidth || 75;
+      const isMobile = window.innerWidth <= 768;
+      const margin = isMobile ? 16 : 28;
+
+      setPosition((prev) => {
+        if (!prev) return null;
+        const snapLeft = margin;
+        const snapRight = window.innerWidth - btnW - margin;
+        const midPoint = window.innerWidth / 2;
+        const targetX = prev.x + btnW / 2 < midPoint ? snapLeft : snapRight;
+
+        setIsSnapping(true);
+        setTimeout(() => setIsSnapping(false), 360);
+
+        return { x: targetX, y: prev.y };
+      });
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+  };
+
   const handleSelectLanguage = (lang: LanguageOption) => {
     setSelectedLang(lang.code);
     setIsOpen(false);
@@ -127,23 +232,32 @@ export const LanguageSwitcher: React.FC = () => {
     return null;
   }
 
+  const buttonStyle: React.CSSProperties = position
+    ? {
+        position: 'fixed',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        bottom: 'auto',
+        right: 'auto',
+      }
+    : {};
+
   return (
     <>
       <div id="google_translate_element" style={{ display: 'none' }} />
 
-      <div className={styles.floatingWrapper}>
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className={styles.floatingBtn}
-          aria-label="Pilih Bahasa / Select Language"
-        >
-          <Globe size={18} className={styles.globeIcon} />
-          <span className={styles.flag}>{currentOption.flag}</span>
-          <span className={styles.langText}>{currentOption.code.toUpperCase()}</span>
-          <ChevronUp size={14} className={styles.chevronIcon} />
-        </button>
-      </div>
+      <button
+        ref={buttonRef}
+        type="button"
+        onPointerDown={handlePointerDown}
+        style={buttonStyle}
+        className={`${styles.floatingBtn} ${isSnapping ? styles.snapping : ''}`}
+        aria-label="Pilih Bahasa / Select Language"
+      >
+        <Globe size={16} className={styles.globeIcon} />
+        <span className={styles.langText}>{currentOption.code.toUpperCase()}</span>
+        <ChevronUp size={13} className={styles.chevronIcon} />
+      </button>
 
       {isOpen && (
         <div

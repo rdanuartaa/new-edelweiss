@@ -1,23 +1,17 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
-.floatingWrapper {
+.floatingBtn {
   position: fixed;
   bottom: 28px;
   left: 28px;
   z-index: 990;
-
-  @include mobile {
-    bottom: 84px;
-    left: 16px;
-  }
-}
-
-.floatingBtn {
+  touch-action: none;
+  user-select: none;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 8px 14px;
   background: rgba(30, 40, 51, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -25,19 +19,28 @@
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-  transition: all 0.25s cubic-bezier(0.24, 0.74, 0.58, 1);
-  cursor: pointer;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+    transform: scale(0.96);
+  }
+
+  &.snapping {
+    transition: left 0.35s cubic-bezier(0.24, 0.74, 0.58, 1), top 0.35s cubic-bezier(0.24, 0.74, 0.58, 1);
+  }
 
   &:hover {
-    transform: translateY(-2px);
     border-color: $primary;
     box-shadow: 0 12px 28px rgba(99, 171, 69, 0.28);
     background: rgba(22, 25, 33, 0.98);
   }
 
   @include mobile {
+    bottom: 84px;
+    left: 16px;
     padding: 7px 12px;
-    gap: 6px;
+    gap: 5px;
   }
 }
 
@@ -46,16 +49,11 @@
   flex-shrink: 0;
 }
 
-.flag {
-  font-size: 1.15rem;
-  line-height: 1;
-}
-
 .langText {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #FFFFFF;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
 
   @include mobile {
     font-size: 0.78rem;
