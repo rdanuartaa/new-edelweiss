@@ -62,15 +62,21 @@ export const LanguageSwitcher: React.FC = () => {
   }, [getInitialPosition]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('edelweiss_language');
-    if (saved) {
-      setSelectedLang(saved);
-      return;
-    }
     const match = document.cookie.match(/googtrans=\/id\/([^;]+)/);
     if (match && match[1] && match[1] !== 'id') {
       setSelectedLang(match[1]);
+      localStorage.setItem('edelweiss_language', match[1]);
+      return;
     }
+
+    const saved = localStorage.getItem('edelweiss_language');
+    if (saved && saved !== 'id') {
+      setSelectedLang(saved);
+      return;
+    }
+
+    setSelectedLang('id');
+    localStorage.removeItem('edelweiss_language');
   }, []);
 
   useEffect(() => {
@@ -216,39 +222,65 @@ export const LanguageSwitcher: React.FC = () => {
     window.addEventListener('pointerup', onPointerUp);
   };
 
+  const clearGoogtransCookies = () => {
+    const host = window.location.hostname;
+    const domainParts = host.split('.');
+    const names = ['googtrans'];
+
+    names.forEach((name) => {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${host};`;
+
+      if (domainParts.length >= 2) {
+        const rootDomain = domainParts.slice(-2).join('.');
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${rootDomain};`;
+      }
+    });
+
+    localStorage.removeItem('edelweiss_language');
+  };
+
+  const setGoogtransCookie = (langCode: string) => {
+    const host = window.location.hostname;
+    const domainParts = host.split('.');
+    const val = `/id/${langCode}`;
+
+    document.cookie = `googtrans=${val}; path=/;`;
+    document.cookie = `googtrans=${val}; path=/; domain=${host};`;
+    document.cookie = `googtrans=${val}; path=/; domain=.${host};`;
+
+    if (domainParts.length >= 2) {
+      const rootDomain = domainParts.slice(-2).join('.');
+      document.cookie = `googtrans=${val}; path=/; domain=.${rootDomain};`;
+    }
+
+    localStorage.setItem('edelweiss_language', langCode);
+  };
+
   const handleSelectLanguage = (lang: LanguageOption) => {
+    if (lang.code === selectedLang) {
+      setIsOpen(false);
+      return;
+    }
+
     setSelectedLang(lang.code);
     setIsOpen(false);
 
-    const targetCode = lang.code;
-    const host = window.location.hostname;
-
-    if (targetCode === 'id') {
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
-      document.cookie = 'googtrans=/id/id; path=/;';
-      localStorage.removeItem('edelweiss_language');
+    if (lang.code === 'id') {
+      clearGoogtransCookies();
     } else {
-      const transValue = `/id/${targetCode}`;
-      document.cookie = `googtrans=${transValue}; path=/;`;
-      document.cookie = `googtrans=${transValue}; path=/; domain=${host};`;
-      localStorage.setItem('edelweiss_language', targetCode);
+      setGoogtransCookie(lang.code);
     }
 
-    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-    if (select) {
-      select.value = targetCode === 'id' ? '' : targetCode;
-      select.dispatchEvent(new Event('change'));
-    } else {
-      window.location.reload();
-    }
+    window.location.reload();
   };
 
   const handleResetLanguage = () => {
-    const idOption = LANGUAGES.find((l) => l.code === 'id');
-    if (idOption) {
-      handleSelectLanguage(idOption);
-    }
+    clearGoogtransCookies();
+    setSelectedLang('id');
+    setIsOpen(false);
+    window.location.reload();
   };
 
   if (pathname?.startsWith('/admin')) {
