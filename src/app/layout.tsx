@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.scss';
 import { BRAND } from '@/constants/brand';
 import { BottomNav } from '@/components/common/BottomNav/BottomNav';
+import { LanguageSwitcher } from '@/components/common/LanguageSwitcher/LanguageSwitcher';
 
 export const metadata: Metadata = {
   title: `${BRAND.NAME} - ${BRAND.TAGLINE}`,
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body>
         {children}
         <BottomNav />
+        <LanguageSwitcher />
       </body>
     </html>
   );

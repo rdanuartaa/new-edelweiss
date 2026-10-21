@@ -1,0 +1,229 @@
+'use client';
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { usePathname } from 'next/navigation';
+import { Globe, X, Search, Check, ChevronUp } from 'lucide-react';
+import styles from './LanguageSwitcher.module.scss';
+import { LANGUAGES, LanguageOption } from '@/constants/languages';
+
+declare global {
+  interface Window {
+    google?: {
+      translate: {
+        TranslateElement: new (
+          options: { pageLanguage: string; autoDisplay: boolean; includedLanguages: string },
+          elementId: string
+        ) => void;
+      };
+    };
+    googleTranslateElementInit?: () => void;
+  }
+}
+
+export const LanguageSwitcher: React.FC = () => {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState('id');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('edelweiss_language');
+    if (saved) {
+      setSelectedLang(saved);
+      return;
+    }
+    const match = document.cookie.match(/googtrans=\/id\/([^;]+)/);
+    if (match && match[1] && match[1] !== 'id') {
+      setSelectedLang(match[1]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathname?.startsWith('/admin')) return;
+
+    window.googleTranslateElementInit = () => {
+      if (window.google?.translate?.TranslateElement) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'id',
+            includedLanguages: 'id,en,de,zh-CN,ja,ko,ar,th,vi,ms,hi,tl',
+            autoDisplay: false,
+          },
+          'google_translate_element'
+        );
+      }
+    };
+
+    if (!document.getElementById('google-translate-script')) {
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
+  const currentOption = useMemo(() => {
+    return LANGUAGES.find((lang) => lang.code === selectedLang) ?? LANGUAGES[0];
+  }, [selectedLang]);
+
+  const filteredLanguages = useMemo(() => {
+    if (!searchQuery.trim()) return LANGUAGES;
+    const q = searchQuery.toLowerCase().trim();
+    return LANGUAGES.filter(
+      (lang) =>
+        lang.name.toLowerCase().includes(q) ||
+        lang.nativeName.toLowerCase().includes(q) ||
+        lang.code.toLowerCase().includes(q)
+    );
+  }, [searchQuery]);
+
+  const handleSelectLanguage = (lang: LanguageOption) => {
+    setSelectedLang(lang.code);
+    setIsOpen(false);
+
+    const targetCode = lang.code;
+    const host = window.location.hostname;
+
+    if (targetCode === 'id') {
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
+      document.cookie = 'googtrans=/id/id; path=/;';
+      localStorage.removeItem('edelweiss_language');
+    } else {
+      const transValue = `/id/${targetCode}`;
+      document.cookie = `googtrans=${transValue}; path=/;`;
+      document.cookie = `googtrans=${transValue}; path=/; domain=${host};`;
+      localStorage.setItem('edelweiss_language', targetCode);
+    }
+
+    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+    if (select) {
+      select.value = targetCode === 'id' ? '' : targetCode;
+      select.dispatchEvent(new Event('change'));
+    } else {
+      window.location.reload();
+    }
+  };
+
+  const handleResetLanguage = () => {
+    const idOption = LANGUAGES.find((l) => l.code === 'id');
+    if (idOption) {
+      handleSelectLanguage(idOption);
+    }
+  };
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
+  return (
+    <>
+      <div id="google_translate_element" style={{ display: 'none' }} />
+
+      <div className={styles.floatingWrapper}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className={styles.floatingBtn}
+          aria-label="Pilih Bahasa / Select Language"
+        >
+          <Globe size={18} className={styles.globeIcon} />
+          <span className={styles.flag}>{currentOption.flag}</span>
+          <span className={styles.langText}>{currentOption.code.toUpperCase()}</span>
+          <ChevronUp size={14} className={styles.chevronIcon} />
+        </button>
+      </div>
+
+      {isOpen && (
+        <div
+          className={styles.modalBackdrop}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsOpen(false);
+          }}
+        >
+          <div className={styles.modalCard} role="dialog" aria-modal="true">
+            <div className={styles.modalHeader}>
+              <div className={styles.headerTextGroup}>
+                <div className={styles.headerTitleRow}>
+                  <Globe size={20} className={styles.globeIcon} />
+                  <h3 className={styles.modalTitle}>Pilih Bahasa / Language</h3>
+                </div>
+                <p className={styles.modalSubtitle}>
+                  Choose language for Edelweiss Tour & Travel
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className={styles.closeBtn}
+                aria-label="Tutup"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className={styles.searchWrap}>
+              <Search size={16} className={styles.searchIcon} />
+              <input
+                type="text"
+                placeholder="Cari bahasa / Search (e.g. English, Japan, Deutsch)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={styles.searchInput}
+              />
+            </div>
+
+            <div className={styles.langList}>
+              {filteredLanguages.map((lang) => {
+                const isActive = lang.code === selectedLang;
+                return (
+                  <button
+                    key={lang.code}
+                    type="button"
+                    onClick={() => handleSelectLanguage(lang)}
+                    className={`${styles.langCard} ${isActive ? styles.active : ''}`}
+                  >
+                    <div className={styles.langCardLeft}>
+                      <span className={styles.cardFlag}>{lang.flag}</span>
+                      <div className={styles.cardNames}>
+                        <span className={styles.nativeName}>{lang.nativeName}</span>
+                        <span className={styles.subName}>{lang.name}</span>
+                      </div>
+                    </div>
+                    {isActive && <Check size={18} className={styles.checkIcon} />}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className={styles.modalFooter}>
+              <p className={styles.footerNote}>
+                Didukung penerjemahan instan multi-bahasa
+              </p>
+              {selectedLang !== 'id' && (
+                <button
+                  type="button"
+                  onClick={handleResetLanguage}
+                  className={styles.resetBtn}
+                >
+                  Reset ke Bahasa Indonesia
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
