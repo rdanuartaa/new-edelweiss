@@ -11,6 +11,7 @@ interface DashboardPaginationProps {
   totalItems: number;
   onPageChange: (page: number) => void;
   pageSize?: number;
+  itemLabel?: string;
 }
 
 const DOTS = 'dots';
@@ -33,6 +34,7 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({
   totalItems,
   onPageChange,
   pageSize = DASHBOARD_PAGE_SIZE,
+  itemLabel = 'data',
 }) => {
   const pageCount = Math.max(1, Math.ceil(totalItems / pageSize));
 
@@ -49,7 +51,7 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({
   return (
     <div className={styles.paginationWrap}>
       <p className={styles.infoText}>
-        Menampilkan {from}-{to} dari {totalItems} data
+        Menampilkan {from}-{to} dari {totalItems} {itemLabel}
       </p>
 
       <ul className={styles.paginationList}>
@@ -99,3 +101,6 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({
     </div>
   );
 };
+
+export { DashboardPagination as Pagination };
+

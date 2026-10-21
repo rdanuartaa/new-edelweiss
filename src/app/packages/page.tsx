@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './page.module.scss';
 import { Package } from '@/types';
 import { packageService } from '@/services/packageService';
@@ -9,19 +9,39 @@ import { Footer } from '@/components/common/Footer/Footer';
 import { PackageCard } from '@/components/tour/PackageCard/PackageCard';
 import { Input } from '@/components/ui/Input/Input';
 import { PageHighlightCard } from '@/components/common/PageHighlightCard/PageHighlightCard';
+import { Pagination } from '@/components/common/DashboardPagination/DashboardPagination';
 
 export default function PackagesCatalogPage() {
   const [packages, setPackages] = useState<Package[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('Semua Lokasi');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const catalogSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadData = async () => {
       const data = await packageService.getAll();
-      setPackages(data);
+      const sorted = [...data].sort((a, b) => b.id - a.id);
+      setPackages(sorted);
     };
     loadData();
   }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const pageSize = isMobile ? 5 : 9;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedLocation, pageSize]);
 
   const locations = ['Semua Lokasi', ...Array.from(new Set(packages.map((p) => p.location)))];
 
@@ -31,6 +51,16 @@ export default function PackagesCatalogPage() {
     const matchLocation = selectedLocation === 'Semua Lokasi' || pkg.location === selectedLocation;
     return matchSearch && matchLocation;
   });
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedPackages = filtered.slice(startIndex, startIndex + pageSize);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    if (catalogSectionRef.current) {
+      catalogSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <>
@@ -46,7 +76,7 @@ export default function PackagesCatalogPage() {
           </div>
         </section>
 
-        <section className="container section-py" style={{ paddingTop: 0 }}>
+        <section ref={catalogSectionRef} className="container section-py" style={{ paddingTop: 0 }}>
           <div className={styles.highlightCardWrapper}>
             <PageHighlightCard
               title={
@@ -95,15 +125,23 @@ export default function PackagesCatalogPage() {
           </div>
 
           <div className={styles.grid}>
-            {filtered.map((pkg) => (
+            {paginatedPackages.map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />
             ))}
           </div>
 
-          {filtered.length === 0 && (
+          {filtered.length === 0 ? (
             <div className={styles.emptyState}>
               <p>Tidak ada paket wisata yang sesuai dengan pencarian Anda.</p>
             </div>
+          ) : (
+            <Pagination
+              currentPage={currentPage}
+              totalItems={filtered.length}
+              pageSize={pageSize}
+              onPageChange={handlePageChange}
+              itemLabel="paket wisata"
+            />
           )}
         </section>
       </main>
@@ -112,3 +150,4 @@ export default function PackagesCatalogPage() {
     </>
   );
 }
+
