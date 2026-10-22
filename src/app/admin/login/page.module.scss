@@ -41,14 +41,20 @@
 }
 
 .cardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .logoImage {
-  height: 48px;
+  height: 64px;
   width: auto;
-  margin-bottom: 16px;
+  max-width: 260px;
+  margin: 0 auto 16px;
+  display: block;
+  object-fit: contain;
 }
 
 .badge {
@@ -203,74 +209,6 @@
   border-radius: 50%;
   border-top-color: #ffffff;
   animation: spin 0.8s linear infinite;
-}
-
-.credentialHint {
-  margin-top: 24px;
-  background-color: #F8FAFC;
-  border: 1px dashed #CBD5E1;
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hintHeader {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.hintBody {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 0.85rem;
-  color: #334155;
-
-  p {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  code {
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    color: #63AB45;
-    font-weight: 700;
-    font-family: inherit;
-  }
-}
-
-.btnQuickFill {
-  margin-top: 4px;
-  background-color: #EAF6E7;
-  color: #4E8836;
-  border: 1px solid rgba(99, 171, 69, 0.25);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-
-  &:hover {
-    background-color: #63AB45;
-    color: #ffffff;
-  }
 }
 
 .cardFooter {

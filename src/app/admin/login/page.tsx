@@ -135,32 +135,6 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        <div className={styles.credentialHint}>
-          <div className={styles.hintHeader}>
-            <span>Kredensial Akses Admin</span>
-          </div>
-          <div className={styles.hintBody}>
-            <p>
-              <span>Email:</span>
-              <code>admin@edelweisstour.com</code>
-            </p>
-            <p>
-              <span>Password:</span>
-              <code>AdminEdelweiss2025!</code>
-            </p>
-          </div>
-          <button
-            type="button"
-            className={styles.btnQuickFill}
-            onClick={() => {
-              setEmail('admin@edelweisstour.com');
-              setPassword('AdminEdelweiss2025!');
-            }}
-          >
-            Isi Otomatis Kredensial Ini
-          </button>
-        </div>
-
         <div className={styles.cardFooter}>
           <Link href={ROUTES.HOME} className={styles.backLink}>
             <ArrowLeft size={16} />
