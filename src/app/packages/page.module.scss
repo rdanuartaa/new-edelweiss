@@ -3,11 +3,11 @@
 
 .banner {
   background-color: $dark-surface;
-  background-image: linear-gradient(rgba(22, 25, 33, 0.7), rgba(22, 25, 33, 0.8)), url('/images/banner_atv.jpg');
+  background-image: linear-gradient(rgba(22, 25, 33, 0.52), rgba(22, 25, 33, 0.72)), url('/images/banner_atv.jpg');
   background-size: cover;
-  background-position: center;
-  padding: 155px 20px 155px;
-  min-height: 500px;
+  background-position: center 18%;
+  padding: 160px 20px 150px;
+  min-height: 550px;
   display: flex;
   align-items: center;
   justify-content: center;

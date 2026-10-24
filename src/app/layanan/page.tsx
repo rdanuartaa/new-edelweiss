@@ -102,24 +102,18 @@ export default function LayananKamiPage() {
     {
       id: 'order',
       title: 'Cara Order / Booking',
-      tag: 'Panduan',
-      tagClass: styles.tagGreen,
       icon: <ShoppingBag size={22} />,
       actionText: 'Buka',
     },
     {
       id: 'faq',
       title: 'Pusat Bantuan & FAQ',
-      tag: 'Tanya Jawab',
-      tagClass: styles.tagGreen,
       icon: <HelpCircle size={22} />,
       actionText: 'Buka',
     },
     {
       id: 'about',
       title: 'Tentang Kami',
-      tag: 'Profil & Armada',
-      tagClass: styles.tagGreen,
       icon: <Info size={22} />,
       actionText: 'Lihat',
     },
@@ -191,7 +185,6 @@ export default function LayananKamiPage() {
                       <div className={styles.iconCircle}>{item.icon}</div>
                       <div className={styles.cardTextWrap}>
                         <h3 className={styles.cardTitle}>{item.title}</h3>
-                        <span className={`${styles.cardTag} ${item.tagClass}`}>{item.tag}</span>
                       </div>
                     </div>
                     <div className={styles.cardRight}>

@@ -102,6 +102,11 @@ export const packageService = {
     return this.getBySlugOrId(id);
   },
 
+  async getPopular(limit: number = 6): Promise<Package[]> {
+    const all = await this.getAll();
+    return [...all].sort((a, b) => a.id - b.id).slice(0, limit);
+  },
+
   async create(payload: PackageFormData): Promise<{ success: boolean; data?: Package; error?: string }> {
     try {
       const { data: pkg, error: pkgError } = await supabase

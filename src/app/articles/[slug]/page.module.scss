@@ -167,21 +167,20 @@
 
 .imageWrapper {
   width: 100%;
-  height: 440px;
   border-radius: $radius-lg;
   overflow: hidden;
   margin-bottom: 36px;
   box-shadow: $shadow-md;
-  background-color: $dark-surface;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  @include mobile {
-    height: 260px;
+    height: auto;
+    display: block;
+    border-radius: $radius-lg;
   }
 }
 

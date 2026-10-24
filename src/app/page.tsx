@@ -16,12 +16,11 @@ import { CtaTravelersImage } from '@/components/home/CtaTravelersImage/CtaTravel
 import { HeroBackgroundSlider } from '@/components/home/HeroBackgroundSlider/HeroBackgroundSlider';
 
 export default async function HomePage() {
-  const [packages, articles] = await Promise.all([
-    packageService.getAll(),
+  const [featuredPackages, articles] = await Promise.all([
+    packageService.getPopular(6),
     articleService.getAll(),
   ]);
 
-  const featuredPackages = packages.slice(0, 6);
   const latestArticles = articles.slice(0, 6);
 
   const features = [

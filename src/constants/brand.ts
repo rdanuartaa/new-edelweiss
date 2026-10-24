@@ -7,9 +7,9 @@ export const BRAND = {
   ADDRESS: 'Lumajang, Jawa Timur, Indonesia',
   SOCIALS: {
     INSTAGRAM: 'https://instagram.com/edelweisstour_traveladventure',
-    TIKTOK: 'https://tiktok.com/@edelweisstour_traveladventure',
+    TIKTOK: 'https://tiktok.com/@edelweisstour',
     INSTAGRAM_HANDLE: '@edelweisstour_traveladventure',
-    TIKTOK_HANDLE: '@edelweisstour_traveladventure',
+    TIKTOK_HANDLE: '@edelweisstour',
     FACEBOOK: 'https://facebook.com/edelweisstour',
     WHATSAPP: 'https://wa.me/6282244104821?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20tentang%20paket%20wisata%20Edelweiss%20Tour%20and%20Travel%20Advanture%20Lumajang',
   },

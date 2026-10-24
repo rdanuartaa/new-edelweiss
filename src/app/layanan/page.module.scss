@@ -9,11 +9,11 @@
 
 .banner {
   background-color: $dark-surface;
-  background-image: linear-gradient(rgba(22, 25, 33, 0.72), rgba(22, 25, 33, 0.85)), url('/images/sumberurip.jpg');
+  background-image: linear-gradient(rgba(22, 25, 33, 0.50), rgba(22, 25, 33, 0.70)), url('/images/sumberurip.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center 48%;
   padding: 155px 20px 155px;
-  min-height: 500px;
+  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
