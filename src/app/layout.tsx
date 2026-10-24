@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" data-scroll-behavior="smooth">
-      <body>
+    <html lang="id" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <TranslationPatch />
         {children}
         <BottomNav />

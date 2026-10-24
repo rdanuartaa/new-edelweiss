@@ -8,6 +8,7 @@ import { Navbar } from '@/components/common/Navbar/Navbar';
 import { Footer } from '@/components/common/Footer/Footer';
 import { PackageCard } from '@/components/tour/PackageCard/PackageCard';
 import { Input } from '@/components/ui/Input/Input';
+import { DropdownSelect } from '@/components/ui/DropdownSelect/DropdownSelect';
 import { PageHighlightCard } from '@/components/common/PageHighlightCard/PageHighlightCard';
 import { Pagination } from '@/components/common/DashboardPagination/DashboardPagination';
 
@@ -101,26 +102,12 @@ export default function PackagesCatalogPage() {
               />
             </div>
 
-            <div style={{ minWidth: '220px' }}>
-              <select
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 14px',
-                  borderRadius: '10px',
-                  border: '1.5px solid #E5E7EB',
-                  backgroundColor: '#FFFFFF',
-                  color: '#1E2833',
-                  fontWeight: 500,
-                }}
-              >
-                {locations.map((loc) => (
-                  <option key={loc} value={loc}>
-                    {loc}
-                  </option>
-                ))}
-              </select>
+            <div className={styles.filterLocationCol}>
+              <DropdownSelect
+                options={locations}
+                selectedValue={selectedLocation}
+                onChange={setSelectedLocation}
+              />
             </div>
           </div>
 

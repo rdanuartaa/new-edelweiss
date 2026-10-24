@@ -79,6 +79,15 @@
   width: 100%;
 }
 
+.filterLocationCol {
+  min-width: 240px;
+
+  @include mobile {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

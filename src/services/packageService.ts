@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase/client';
 import { Package, PackageFormData } from '@/types';
 import { INITIAL_PACKAGES } from '@/constants/initialData';
+import { slugify } from '@/utils/format';
 
 export const packageService = {
   async getAll(): Promise<Package[]> {
@@ -17,38 +18,88 @@ export const packageService = {
         .order('id', { ascending: false });
 
       if (error || !data || data.length === 0) {
-        return INITIAL_PACKAGES;
+        return INITIAL_PACKAGES.map((item) => ({
+          ...item,
+          slug: item.slug || slugify(item.name),
+        }));
       }
 
-      return data as Package[];
+      return (data as Package[]).map((item) => ({
+        ...item,
+        slug: item.slug || slugify(item.name),
+      }));
     } catch {
-      return INITIAL_PACKAGES;
+      return INITIAL_PACKAGES.map((item) => ({
+        ...item,
+        slug: item.slug || slugify(item.name),
+      }));
+    }
+  },
+
+  async getBySlugOrId(slugOrId: number | string): Promise<Package | null> {
+    const raw = String(slugOrId).trim();
+    const numericId = parseInt(raw, 10);
+    const isNumeric = !isNaN(numericId) && String(numericId) === raw;
+
+    try {
+      if (isNumeric) {
+        const { data, error } = await supabase
+          .from('packages')
+          .select(`
+            *,
+            package_details (
+              *,
+              facilities (*)
+            )
+          `)
+          .eq('id', numericId)
+          .maybeSingle();
+
+        if (!error && data) {
+          return {
+            ...data,
+            slug: data.slug || slugify(data.name),
+          } as Package;
+        }
+      }
+
+      const all = await this.getAll();
+      const match = all.find(
+        (pkg) =>
+          pkg.slug === raw ||
+          slugify(pkg.name) === raw ||
+          (isNumeric && pkg.id === numericId)
+      );
+
+      if (match) {
+        return match;
+      }
+
+      const initialMatch = INITIAL_PACKAGES.find(
+        (pkg) =>
+          pkg.slug === raw ||
+          slugify(pkg.name) === raw ||
+          (isNumeric && pkg.id === numericId)
+      );
+
+      return initialMatch
+        ? { ...initialMatch, slug: initialMatch.slug || slugify(initialMatch.name) }
+        : null;
+    } catch {
+      const initialMatch = INITIAL_PACKAGES.find(
+        (pkg) =>
+          pkg.slug === raw ||
+          slugify(pkg.name) === raw ||
+          (isNumeric && pkg.id === numericId)
+      );
+      return initialMatch
+        ? { ...initialMatch, slug: initialMatch.slug || slugify(initialMatch.name) }
+        : null;
     }
   },
 
   async getById(id: number | string): Promise<Package | null> {
-    const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
-    try {
-      const { data, error } = await supabase
-        .from('packages')
-        .select(`
-          *,
-          package_details (
-            *,
-            facilities (*)
-          )
-        `)
-        .eq('id', numericId)
-        .single();
-
-      if (error || !data) {
-        return INITIAL_PACKAGES.find((pkg) => pkg.id === numericId) ?? null;
-      }
-
-      return data as Package;
-    } catch {
-      return INITIAL_PACKAGES.find((pkg) => pkg.id === numericId) ?? null;
-    }
+    return this.getBySlugOrId(id);
   },
 
   async create(payload: PackageFormData): Promise<{ success: boolean; data?: Package; error?: string }> {

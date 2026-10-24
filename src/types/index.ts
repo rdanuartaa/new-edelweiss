@@ -20,6 +20,7 @@ export interface PackageDetail {
 export interface Package {
   id: number;
   name: string;
+  slug?: string;
   description: string;
   location: string;
   latitude?: number | null;

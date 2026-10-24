@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MapPin, ArrowRight } from 'lucide-react';
 import styles from './PackageCard.module.scss';
 import { Package } from '@/types';
-import { formatRupiah, formatLocation } from '@/utils/format';
+import { formatRupiah, formatLocation, slugify } from '@/utils/format';
 import { ROUTES } from '@/constants/routes';
 import { Button } from '@/components/ui/Button/Button';
 
@@ -38,7 +38,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({ pkg }) => {
             <span className={styles.priceValue}>{formatRupiah(minPrice)}</span>
           </div>
 
-          <Link href={ROUTES.PACKAGE_DETAIL(pkg.id)}>
+          <Link href={ROUTES.PACKAGE_DETAIL(pkg.slug || slugify(pkg.name))}>
             <Button size="sm" variant="outline" rightIcon={<ArrowRight size={14} />}>
               Detail
             </Button>

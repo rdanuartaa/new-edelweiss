@@ -16,22 +16,22 @@ import { Button } from '@/components/ui/Button/Button';
 
 export default function PackageDetailPage() {
   const params = useParams();
-  const id = params?.id as string;
+  const slug = (params?.slug || params?.id) as string;
   const [pkg, setPkg] = useState<Package | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [activeMedia, setActiveMedia] = useState<'banner' | 'poster'>('poster');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!slug) return;
     const fetchPackage = async () => {
       setIsLoading(true);
-      const data = await packageService.getById(id);
+      const data = await packageService.getBySlugOrId(slug);
       setPkg(data);
       setIsLoading(false);
     };
     fetchPackage();
-  }, [id]);
+  }, [slug]);
 
   if (isLoading) {
     return (

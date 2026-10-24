@@ -55,7 +55,7 @@ export default function ArticleDetailPage() {
             <section
               className={styles.heroBanner}
               style={{
-                backgroundImage: `linear-gradient(rgba(22, 25, 33, 0.75), rgba(22, 25, 33, 0.85)), url('${article.gambar || '/images/poster_lavatour.jpg'}')`,
+                backgroundImage: `linear-gradient(rgba(22, 25, 33, 0.75), rgba(22, 25, 33, 0.85)), url('${article.gambar || '/images/banner_articles.jpg'}')`,
               }}
             >
               <div className={`container ${styles.heroContent}`}>

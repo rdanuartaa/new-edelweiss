@@ -1,0 +1,153 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.dropdownContainer {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.trigger {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 16px;
+  background-color: $bg-white;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  color: $dark;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+
+  &:hover:not(:disabled) {
+    border-color: #CBD5E1;
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(99, 171, 69, 0.15);
+  }
+
+  &:disabled {
+    background-color: #F8FAFC;
+    color: #94A3B8;
+    cursor: not-allowed;
+    border-color: #E2E8F0;
+  }
+}
+
+.open .trigger {
+  border-color: $primary;
+  box-shadow: 0 0 0 3px rgba(99, 171, 69, 0.15);
+}
+
+.selectedText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  text-align: left;
+}
+
+.chevronIcon {
+  color: $dark;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.open .chevronIcon {
+  transform: rotate(180deg);
+}
+
+.menuList {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background-color: $bg-white;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 999px;
+
+    &:hover {
+      background: #94A3B8;
+    }
+  }
+}
+
+.menuItem {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #F1F5F9;
+    color: $dark;
+  }
+}
+
+.selectedItem {
+  background-color: #E2E8F0;
+  color: $dark;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #CBD5E1;
+    color: $dark;
+  }
+}
+
+.checkIcon {
+  color: #475569;
+  flex-shrink: 0;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

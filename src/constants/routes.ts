@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: '/',
   PACKAGES: '/packages',
-  PACKAGE_DETAIL: (id: string | number) => `/packages/${id}`,
+  PACKAGE_DETAIL: (slugOrId: string | number) => `/packages/${slugOrId}`,
   ARTICLES: '/articles',
   ARTICLE_DETAIL: (slugOrId: string | number) => `/articles/${slugOrId}`,
   SERVICES: '/layanan',
