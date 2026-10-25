@@ -60,16 +60,16 @@ CREATE POLICY "Public facilities viewable" ON facilities FOR SELECT USING (true)
 CREATE POLICY "Public tags viewable" ON tags FOR SELECT USING (true);
 CREATE POLICY "Public articles viewable" ON articles FOR SELECT USING (true);
 
-CREATE POLICY "Allow packages modification" ON packages FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Allow package_details modification" ON package_details FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Allow facilities modification" ON facilities FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Allow tags modification" ON tags FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Allow articles modification" ON articles FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Admin packages modify" ON packages FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin package_details modify" ON package_details FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin facilities modify" ON facilities FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin tags modify" ON tags FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin articles modify" ON articles FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 CREATE POLICY "Public storage viewable" ON storage.objects FOR SELECT USING (bucket_id IN ('tour-media', 'article-media'));
-CREATE POLICY "Public storage upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id IN ('tour-media', 'article-media'));
-CREATE POLICY "Public storage update" ON storage.objects FOR UPDATE USING (bucket_id IN ('tour-media', 'article-media'));
-CREATE POLICY "Public storage delete" ON storage.objects FOR DELETE USING (bucket_id IN ('tour-media', 'article-media'));
+CREATE POLICY "Authenticated storage upload" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id IN ('tour-media', 'article-media'));
+CREATE POLICY "Authenticated storage update" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id IN ('tour-media', 'article-media'));
+CREATE POLICY "Authenticated storage delete" ON storage.objects FOR DELETE TO authenticated USING (bucket_id IN ('tour-media', 'article-media'));
 
 INSERT INTO tags (nama) VALUES
 ('Wisata Alam'),

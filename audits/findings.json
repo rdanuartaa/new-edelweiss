@@ -1,0 +1,79 @@
+{
+  "audit_version": "1.0.0",
+  "project": "new-edelweiss",
+  "timestamp": "2026-10-25T10:37:00Z",
+  "summary": {
+    "total": 5,
+    "critical": 2,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "findings": [
+    {
+      "id": "SEC-01",
+      "title": "Full Row-Level Security (RLS) Bypass on Supabase Tables",
+      "severity": "critical",
+      "cwe": "CWE-284",
+      "status": "confirmed",
+      "location": {
+        "file": "supabase/schema.sql",
+        "lines": "63-67"
+      },
+      "description": "Supabase RLS policies allow unauthenticated public users to insert, update, and delete all records in packages, package_details, facilities, tags, and articles.",
+      "remediation": "Restrict write policies to authenticated role only using TO authenticated."
+    },
+    {
+      "id": "SEC-02",
+      "title": "Full RLS Bypass on Supabase Storage Objects",
+      "severity": "critical",
+      "cwe": "CWE-284",
+      "status": "confirmed",
+      "location": {
+        "file": "supabase/schema.sql",
+        "lines": "69-72"
+      },
+      "description": "Public role is granted INSERT, UPDATE, and DELETE permissions on storage.objects for tour-media and article-media buckets.",
+      "remediation": "Restrict storage modification operations to TO authenticated."
+    },
+    {
+      "id": "SEC-03",
+      "title": "Unauthenticated & Unvalidated File Upload Endpoint",
+      "severity": "high",
+      "cwe": "CWE-434",
+      "status": "confirmed",
+      "location": {
+        "file": "src/app/api/upload/route.ts",
+        "lines": "18-92"
+      },
+      "description": "POST /api/upload lacks session authentication, file type validation, and file size limits, enabling arbitrary file upload and potential DoS via memory exhaustion.",
+      "remediation": "Enforce authentication, whitelist MIME types (jpeg, png, webp), and add 5MB size limit."
+    },
+    {
+      "id": "SEC-04",
+      "title": "Client-Side-Only Route Guard for Admin Dashboard",
+      "severity": "medium",
+      "cwe": "CWE-602",
+      "status": "confirmed",
+      "location": {
+        "file": "src/app/admin/layout.tsx",
+        "lines": "8-23"
+      },
+      "description": "Admin route protection relies purely on client-side React useEffect without server-side Next.js middleware enforcement.",
+      "remediation": "Implement Next.js middleware.ts to intercept and verify Supabase auth session cookies on the server."
+    },
+    {
+      "id": "SEC-05",
+      "title": "Missing Standard Security Headers in Next.js Config",
+      "severity": "low",
+      "cwe": "CWE-693",
+      "status": "confirmed",
+      "location": {
+        "file": "next.config.ts",
+        "lines": "1"
+      },
+      "description": "Next.js configuration does not define HTTP security headers such as X-Frame-Options, X-Content-Type-Options, or Referrer-Policy.",
+      "remediation": "Configure defensive HTTP headers in next.config.ts."
+    }
+  ]
+}
