@@ -9,7 +9,7 @@
 
 .banner {
   background-color: $dark-surface;
-  background-image: linear-gradient(rgba(22, 25, 33, 0.50), rgba(22, 25, 33, 0.70)), url('/images/sumberurip.jpg');
+  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.82) 100%), url('/images/sumberurip.jpg');
   background-size: cover;
   background-position: center 48%;
   padding: 155px 20px 155px;
@@ -23,6 +23,8 @@
   border-bottom-right-radius: 32px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  -webkit-user-select: none;
 
   @include mobile {
     padding: 125px 16px 100px;
@@ -55,6 +57,7 @@
   font-weight: 800;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 
   @include mobile {
     font-size: 1.85rem;
@@ -63,10 +66,11 @@
 
 .bannerSubtitle {
   font-size: 1.02rem;
-  color: #CBD5E0;
+  color: #E2E8F0;
   max-width: 640px;
   margin: 0 auto;
   line-height: 1.6;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 
   @include mobile {
     font-size: 0.9rem;

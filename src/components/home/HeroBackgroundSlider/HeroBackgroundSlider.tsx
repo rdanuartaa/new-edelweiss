@@ -42,6 +42,7 @@ export const HeroBackgroundSlider: React.FC = () => {
                 sizes="100vw"
                 className={styles.slideImage}
                 style={{ objectPosition: slide.position }}
+                draggable={false}
               />
             </div>
           );

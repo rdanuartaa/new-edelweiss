@@ -16,6 +16,8 @@
   border-bottom-right-radius: 32px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  -webkit-user-select: none;
 
   @include mobile {
     padding: 125px 16px 100px;
