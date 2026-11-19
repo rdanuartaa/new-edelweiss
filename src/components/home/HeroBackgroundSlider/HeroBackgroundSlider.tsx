@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import styles from './HeroBackgroundSlider.module.scss';
 
 const SLIDES = [
-  { id: 1, image: '/images/bromo.jpg', position: 'center center' },
-  { id: 2, image: '/images/sumberurip.jpg', position: 'center 48%' },
-  { id: 3, image: '/images/pronojiwo.jpg', position: 'center 72%' },
+  { id: 1, image: '/images/bromo.jpg', position: 'center center', alt: 'Sunrise Gunung Bromo' },
+  { id: 2, image: '/images/sumberurip.jpg', position: 'center 48%', alt: 'Pesona Alam Sumber Urip' },
+  { id: 3, image: '/images/pronojiwo.jpg', position: 'center 72%', alt: 'Panorama Pronojiwo Lumajang' },
 ];
 
 const SLIDE_INTERVAL_MS = 5000;
@@ -32,11 +33,17 @@ export const HeroBackgroundSlider: React.FC = () => {
             <div
               key={slide.id}
               className={`${styles.slide} ${isActive ? styles.active : ''}`}
-              style={{
-                backgroundImage: `url('${slide.image}')`,
-                backgroundPosition: slide.position,
-              }}
-            />
+            >
+              <Image
+                src={slide.image}
+                alt={slide.alt}
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                className={styles.slideImage}
+                style={{ objectPosition: slide.position }}
+              />
+            </div>
           );
         })}
         <div className={styles.overlay} />

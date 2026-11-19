@@ -2,10 +2,14 @@ import path from 'path';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: 'security',
+  },
   sassOptions: {
     includePaths: [path.join(process.cwd(), 'src/styles')],
   },
   images: {
+    qualities: [75, 80, 82],
     remotePatterns: [
       {
         protocol: 'https',

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPin, ArrowRight } from 'lucide-react';
 import styles from './PackageCard.module.scss';
 import { Package } from '@/types';
@@ -21,7 +22,14 @@ export const PackageCard: React.FC<PackageCardProps> = ({ pkg }) => {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <img src={displayImage} alt={pkg.name} />
+        <Image
+          src={displayImage}
+          alt={pkg.name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+          loading="lazy"
+          className={styles.cardImg}
+        />
         <span className={styles.locationBadge}>
           <MapPin size={12} />
           {formatLocation(pkg.location)}

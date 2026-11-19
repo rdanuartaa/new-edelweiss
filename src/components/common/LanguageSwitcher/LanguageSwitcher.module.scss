@@ -3,15 +3,17 @@
 
 .floatingBtn {
   position: fixed;
-  bottom: 28px;
-  left: 28px;
-  z-index: 990;
-  touch-action: none;
+  bottom: 24px;
+  right: 24px;
+  left: auto;
+  z-index: 995;
   user-select: none;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 12px;
+  min-width: 52px;
   background: rgba(30, 40, 51, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -19,34 +21,28 @@
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-    transform: scale(0.96);
-  }
-
-  &.snapping {
-    transition: left 0.35s cubic-bezier(0.24, 0.74, 0.58, 1), top 0.35s cubic-bezier(0.24, 0.74, 0.58, 1);
-  }
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 
   &:hover {
     border-color: $primary;
     box-shadow: 0 12px 28px rgba(99, 171, 69, 0.28);
     background: rgba(22, 25, 33, 0.98);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   @include mobile {
-    bottom: 84px;
-    left: 16px;
-    padding: 7px 12px;
-    gap: 5px;
+    bottom: 76px;
+    right: 16px;
+    left: auto;
+    padding: 7px 11px;
+    gap: 4px;
+    min-width: 48px;
   }
-}
-
-.globeIcon {
-  color: $primary;
-  flex-shrink: 0;
 }
 
 .langText {
@@ -54,6 +50,7 @@
   font-weight: 700;
   color: #FFFFFF;
   letter-spacing: 0.5px;
+  line-height: 1;
 
   @include mobile {
     font-size: 0.78rem;
@@ -61,8 +58,12 @@
 }
 
 .chevronIcon {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   transition: transform 0.2s ease;
+
+  &.chevronOpen {
+    transform: rotate(180deg);
+  }
 }
 
 .modalBackdrop {
@@ -71,7 +72,7 @@
   background-color: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 9999;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,6 +92,11 @@
   border: 1px solid #E2E8F0;
   overflow: hidden;
   animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @include mobile {
+    max-height: 82vh;
+    border-radius: 16px;
+  }
 }
 
 .modalHeader {
@@ -221,9 +227,14 @@
   gap: 12px;
 }
 
-.cardFlag {
-  font-size: 1.5rem;
-  line-height: 1;
+.cardFlagImg {
+  width: 28px;
+  height: 19px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
 }
 
 .cardNames {

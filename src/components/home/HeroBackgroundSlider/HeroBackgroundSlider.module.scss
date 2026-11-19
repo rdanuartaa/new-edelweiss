@@ -12,9 +12,6 @@
 .slide {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   opacity: 0;
   transform: scale(1.08);
   transition: opacity 1.4s ease-in-out, transform 6s cubic-bezier(0.25, 1, 0.5, 1);
@@ -24,6 +21,10 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.slideImage {
+  object-fit: cover;
 }
 
 .overlay {

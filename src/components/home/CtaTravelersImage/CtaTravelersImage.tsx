@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import styles from './CtaTravelersImage.module.scss';
 
 interface CtaTravelersImageProps {
@@ -32,9 +33,12 @@ export const CtaTravelersImage: React.FC<CtaTravelersImageProps> = ({
 
   return (
     <div className={wrapClasses}>
-      <img
+      <Image
         src={src}
         alt={alt}
+        width={660}
+        height={520}
+        loading="lazy"
         className={imageClasses}
         onClick={handleClick}
         onAnimationEnd={handleAnimationEnd}

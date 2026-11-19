@@ -15,6 +15,8 @@ import { Carousel } from '@/components/ui/Carousel/Carousel';
 import { CtaTravelersImage } from '@/components/home/CtaTravelersImage/CtaTravelersImage';
 import { HeroBackgroundSlider } from '@/components/home/HeroBackgroundSlider/HeroBackgroundSlider';
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [featuredPackages, articles] = await Promise.all([
     packageService.getPopular(6),

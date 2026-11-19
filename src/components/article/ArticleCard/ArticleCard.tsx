@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, ArrowRight } from 'lucide-react';
 import styles from './ArticleCard.module.scss';
 import { Article } from '@/types';
@@ -19,7 +20,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
     <article className={styles.card}>
       <Link href={ROUTES.ARTICLE_DETAIL(articleSlug)} className={styles.imageWrapper}>
-        <img src={displayImage} alt={article.judul} />
+        <Image
+          src={displayImage}
+          alt={article.judul}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+          loading="lazy"
+          className={styles.cardImg}
+        />
         <div className={styles.tagBadge}>
           <Badge variant="primary">{tagTitle}</Badge>
         </div>
@@ -44,4 +52,3 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
     </article>
   );
 };
-

@@ -3,6 +3,7 @@ export interface LanguageOption {
   name: string;
   nativeName: string;
   flag: string;
+  flagIcon: string;
   region: string;
 }
 
@@ -12,6 +13,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Indonesia',
     nativeName: 'Bahasa Indonesia',
     flag: '🇮🇩',
+    flagIcon: '/images/flags/id.svg',
     region: 'Asia',
   },
   {
@@ -19,6 +21,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Inggris',
     nativeName: 'English',
     flag: '🇬🇧',
+    flagIcon: '/images/flags/gb.svg',
     region: 'Internasional',
   },
   {
@@ -26,6 +29,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Jerman',
     nativeName: 'Deutsch',
     flag: '🇩🇪',
+    flagIcon: '/images/flags/de.svg',
     region: 'Eropa',
   },
   {
@@ -33,6 +37,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Mandarin (Tiongkok)',
     nativeName: '中文 (简体)',
     flag: '🇨🇳',
+    flagIcon: '/images/flags/cn.svg',
     region: 'Asia',
   },
   {
@@ -40,6 +45,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Jepang',
     nativeName: '日本語',
     flag: '🇯🇵',
+    flagIcon: '/images/flags/jp.svg',
     region: 'Asia',
   },
   {
@@ -47,6 +53,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Korea',
     nativeName: '한국어',
     flag: '🇰🇷',
+    flagIcon: '/images/flags/kr.svg',
     region: 'Asia',
   },
   {
@@ -54,6 +61,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Arab',
     nativeName: 'العربية',
     flag: '🇸🇦',
+    flagIcon: '/images/flags/sa.svg',
     region: 'Asia',
   },
   {
@@ -61,6 +69,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Thailand',
     nativeName: 'ไทย',
     flag: '🇹🇭',
+    flagIcon: '/images/flags/th.svg',
     region: 'Asia',
   },
   {
@@ -68,6 +77,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Vietnam',
     nativeName: 'Tiếng Việt',
     flag: '🇻🇳',
+    flagIcon: '/images/flags/vn.svg',
     region: 'Asia',
   },
   {
@@ -75,6 +85,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Malaysia',
     nativeName: 'Bahasa Melayu',
     flag: '🇲🇾',
+    flagIcon: '/images/flags/my.svg',
     region: 'Asia',
   },
   {
@@ -82,6 +93,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'India',
     nativeName: 'हिन्दी',
     flag: '🇮🇳',
+    flagIcon: '/images/flags/in.svg',
     region: 'Asia',
   },
   {
@@ -89,6 +101,7 @@ export const LANGUAGES: LanguageOption[] = [
     name: 'Filipina',
     nativeName: 'Filipino (Tagalog)',
     flag: '🇵🇭',
+    flagIcon: '/images/flags/ph.svg',
     region: 'Asia',
   },
 ];
